@@ -1,0 +1,63 @@
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.development
+.env.production
+backend/.env
+frontend/.env
+!**/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Node / React
+node_modules/
+frontend/build/
+frontend/dist/
+.eslintcache
+
+# Runtime uploads (user-generated content — should live in object storage)
+backend/uploads/
+
+# Local databases / dev DB dumps
+*.sqlite
+*.db
+*.db-journal
+
+# Test artifacts
+test_reports/
+tests/__pycache__/
+
+# Internal project notes (not for public repo)
+memory/
+
+# Platform / tooling caches
+.emergent/
+frontend/node_modules/.cache/default-development/3.pack
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials
+frontend/node_modules/.cache/default-development/0.pack
+frontend/node_modules/.cache/default-development/1.pack

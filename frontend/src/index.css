@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme — premium warm canvas */
+    --background: 36 24% 97%;
+    --foreground: 158 35% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 158 35% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 158 35% 8%;
+    --primary: 158 64% 22%;          /* deep emerald */
+    --primary-foreground: 36 24% 97%;
+    --secondary: 36 18% 92%;
+    --secondary-foreground: 158 35% 8%;
+    --muted: 36 14% 90%;
+    --muted-foreground: 158 8% 35%;
+    --accent: 158 50% 92%;
+    --accent-foreground: 158 64% 22%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 36 14% 86%;
+    --input: 36 14% 88%;
+    --ring: 158 64% 22%;
+    --chart-1: 158 64% 32%;
+    --chart-2: 32 95% 55%;
+    --chart-3: 199 89% 48%;
+    --chart-4: 12 76% 55%;
+    --chart-5: 280 50% 50%;
+    --radius: 0.875rem;
+
+    --grain-opacity: 0.025;
+    --gold: 42 78% 55%;
+  }
+
+  .dark {
+    /* Dark theme — obsidian + emerald */
+    --background: 158 22% 6%;
+    --foreground: 36 24% 96%;
+    --card: 158 18% 9%;
+    --card-foreground: 36 24% 96%;
+    --popover: 158 18% 9%;
+    --popover-foreground: 36 24% 96%;
+    --primary: 158 70% 55%;
+    --primary-foreground: 158 30% 8%;
+    --secondary: 158 12% 14%;
+    --secondary-foreground: 36 24% 96%;
+    --muted: 158 12% 13%;
+    --muted-foreground: 158 8% 65%;
+    --accent: 158 30% 18%;
+    --accent-foreground: 158 70% 65%;
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 36 24% 96%;
+    --border: 158 14% 16%;
+    --input: 158 14% 18%;
+    --ring: 158 70% 55%;
+    --chart-1: 158 70% 55%;
+    --chart-2: 32 95% 60%;
+    --chart-3: 199 90% 60%;
+    --chart-4: 12 76% 60%;
+    --chart-5: 280 60% 65%;
+    --grain-opacity: 0.04;
+    --gold: 42 80% 62%;
+  }
+
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'cv02', 'cv11';
+  }
+
+  /* Subtle grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+  }
+
+  ::selection { background: hsl(var(--primary) / 0.25); color: hsl(var(--foreground)); }
+
+  /* Smooth scroll for chat panels */
+  .scroll-smoothy { scroll-behavior: smooth; }
+
+  /* Font helpers */
+  .font-display { font-family: 'Instrument Serif', 'DM Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -0.01em; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+}
+
+@layer components {
+  .glass {
+    background: hsl(var(--card) / 0.65);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid hsl(var(--border) / 0.7);
+  }
+
+  .glass-strong {
+    background: hsl(var(--card) / 0.85);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .card-luxe {
+    @apply rounded-2xl border bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_30px_rgba(0,0,0,0.04)];
+  }
+  .dark .card-luxe { box-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 12px 40px rgba(0,0,0,0.35); }
+
+  .hairline { border-color: hsl(var(--border) / 0.7); }
+
+  /* Hover lift */
+  .lift { transition: transform .25s ease, box-shadow .25s ease; }
+  .lift:hover { transform: translateY(-2px); }
+
+  /* Gradient text accent */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--gold)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Animated underline */
+  .link-underline { position: relative; }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    height: 1px; width: 0;
+    background: currentColor;
+    transition: width .3s ease;
+  }
+  .link-underline:hover::after { width: 100%; }
+
+  /* Star button */
+  .star-btn { transition: transform .12s ease, color .15s ease; }
+  .star-btn:hover { transform: scale(1.15); }
+  .star-btn:active { transform: scale(0.9); }
+
+  /* Tab pill */
+  .tab-pill[data-state="active"] {
+    background: hsl(var(--card));
+    color: hsl(var(--primary));
+    box-shadow: 0 1px 0 hsl(var(--border)), 0 4px 12px hsl(var(--primary) / 0.08);
+  }
+
+  /* Subtle ambient glow */
+  .ambient-glow {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit;
+  }
+  .ambient-glow::before {
+    content: '';
+    position: absolute;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.18) 0%, transparent 65%);
+    top: -120px; right: -120px;
+    filter: blur(20px);
+  }
+  .ambient-glow::after {
+    content: '';
+    position: absolute;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, hsl(var(--gold) / 0.16) 0%, transparent 65%);
+    bottom: -100px; left: -100px;
+    filter: blur(20px);
+  }
+
+  /* Keyframe utilities */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .anim-fade-up { animation: fadeUp .5s ease both; }
+
+  @keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+  }
+  .shimmer {
+    background: linear-gradient(90deg, hsl(var(--muted)) 0%, hsl(var(--border)) 50%, hsl(var(--muted)) 100%);
+    background-size: 200px 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+
+  @keyframes pulseDot { 0%,100% { opacity: .25; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.15); } }
+  .pulse-dot { animation: pulseDot 1.3s ease-in-out infinite; }
+}
+
+/* Hide stagger jank */
+[data-debug-wrapper="true"] { display: contents !important; }

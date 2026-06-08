@@ -1,0 +1,20 @@
+{
+  "name": "vera",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vera — QR Product Intelligence. React frontend + FastAPI backend, served from one process.",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "install:frontend": "cd frontend && yarn install",
+    "install:backend": "node scripts/install-backend.js",
+    "build:frontend": "cd frontend && yarn build",
+    "build:bundle": "node scripts/copy-build.js",
+    "build": "npm run install:frontend && npm run install:backend && npm run build:frontend && npm run build:bundle",
+    "start": "node scripts/start-server.js",
+    "dev:backend": "node scripts/start-server.js --reload --port 8001",
+    "dev:frontend": "cd frontend && yarn start"
+  },
+  "dependencies": {}
+}
