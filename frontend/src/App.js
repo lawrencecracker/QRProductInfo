@@ -17,7 +17,7 @@ import {
 } from "recharts";
 import { HOME, PRODUCT, DASHBOARD, AUTH, ADMIN } from "@/constants/testIds";
 
-const API = `${process.env.REACT_APP_BACKEND_URL || ""}/api`;
+const API = "/api";
 const QR_PREFIX = "QRCONNECT:v1";
 
 // ─── Auth ──────────────────────────────────────────────────────────────────
