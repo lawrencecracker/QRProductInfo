@@ -16,5 +16,7 @@
     "dev:backend": "node scripts/start-server.js --reload --port 8001",
     "dev:frontend": "cd frontend && yarn start"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mongodb": "^7.2.0"
+  }
 }

@@ -68,7 +68,7 @@ let webpackConfig = {
 webpackConfig.devServer = (devServerConfig) => {
   // Proxy /api and /uploads to the backend in dev mode so the frontend
   // CRA dev server does not need REACT_APP_BACKEND_URL in most cases.
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8001";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
   devServerConfig.proxy = {
     "/api": { target: backendUrl, changeOrigin: true },
     "/uploads": { target: backendUrl, changeOrigin: true },

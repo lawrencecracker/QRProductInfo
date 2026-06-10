@@ -1311,7 +1311,9 @@ function AppInner() {
   const { me } = useAuth();
 
   const onPayload = useCallback((text) => {
+    console.log("RAW QR:", text);
     const parsed = parseQrPayload(text);
+    console.log("PARSED QR:", parsed);
     if (!parsed) { alert("Unrecognized QR code. Expected QRCONNECT product data."); return; }
     setProductKey(parsed);
     setScreen("product");

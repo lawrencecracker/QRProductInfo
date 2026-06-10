@@ -4,6 +4,7 @@ import pathlib
 import pytest
 import requests
 from dotenv import load_dotenv
+load_dotenv()
 
 # Locate .env relative to this file — works regardless of the working directory
 # or the OS the tests run on.
@@ -18,7 +19,7 @@ for _candidate in [
         break
 
 # Fall back to localhost if no REACT_APP_BACKEND_URL is set (useful in CI)
-BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "http://localhost:8001").rstrip("/")
+BASE_URL = os.getenv("REACT_APP_BACKEND_URL").rstrip("/")
 
 
 @pytest.fixture(scope="module")

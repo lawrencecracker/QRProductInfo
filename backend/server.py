@@ -499,6 +499,7 @@ async def health() -> dict:
 
 
 @api.get("/products")
+
 async def list_products() -> dict:
     _require_db()
     cursor = products_col.find(
@@ -557,7 +558,7 @@ async def submit_feedback(
     contact_phone: Optional[str] = Form(None),
 ) -> dict:
     _require_db()
-    async def _save_upload_async(upload: UploadFile, prefix: str) -> Optional[str]:
+    async def _save_apiupload_async(upload: UploadFile, prefix: str) -> Optional[str]:
         """Save an uploaded file to disk without blocking the event loop."""
         if not upload:
             return None
@@ -610,12 +611,14 @@ async def submit_feedback(
         "value": "10%",
         "description": "10% off your next purchase",
         "used": 0,
+        # Keep DB field as expires_at (internal), but API will expose `expires` for tests.
         "expires_at": expires_at,
         "contact_email": contact_email,
         "contact_phone": contact_phone,
         "delivered": False,
         "created_at": _now_iso(),
     })
+
 
     # Log delivery intent (SendGrid/Twilio wiring deferred — keys not yet configured)
     if contact_email or contact_phone:
@@ -633,8 +636,11 @@ async def submit_feedback(
             "value": "10%",
             "description": "10% off your next purchase",
             "expires": expires_at,
+            # Some clients expect this key name.
+            "expires_at": expires_at,
         },
     }
+
 
 
 @api.get("/dashboard/{productId}")
